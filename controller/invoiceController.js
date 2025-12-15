@@ -220,7 +220,6 @@ exports.returnInvoice = async (req, res) => {
       invoice.remaining = 0;
     }
 
-    await invoice.save();
 
 
 
@@ -243,6 +242,9 @@ exports.returnInvoice = async (req, res) => {
       $inc: { remainingBalance: -totalReturned },
       $push: { invoicesReturn: returnInvoice._id }
     });
+
+    await invoice.save();
+      
 
     res.status(200).json({
       message: "Invoice returned successfully",
@@ -359,6 +361,7 @@ exports.benefit = async (req, res) => {
     });
   }
 };
+
 
 
 
